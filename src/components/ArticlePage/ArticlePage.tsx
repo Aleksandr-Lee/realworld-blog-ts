@@ -1,36 +1,46 @@
-import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import format from 'date-fns/format';
-import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from "react";
+import format from "date-fns/format";
+import ReactMarkdown from "react-markdown";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   actionArticles,
   actionErrorDownload,
   actionCompleteDownloadArticle,
   actionModalConfirmationWindow,
-} from '../../redux/actions/listArticles';
-import LoadingIndicator from '../LoadingIndicator';
-import ModalConfirmationWindow from '../ModalConfirmationWindow';
-import BlogService from '../../services/BlogService';
-import ErrorIndicator from '../ErrorIndicator';
-import Like from '../Like';
-import route from '../../route';
-import classes from './ArticlePage.module.scss';
+} from "../../redux/actions/listArticles";
+import LoadingIndicator from "../LoadingIndicator";
+import ModalConfirmationWindow from "../ModalConfirmationWindow";
+import BlogService from "../../services/BlogService";
+import ErrorIndicator from "../ErrorIndicator";
+import Like from "../Like";
+import route from "../../route";
+import rootState from "../../types/rootState";
+import classes from "./ArticlePage.module.scss";
 
-const ArticlePage = ({ slug }) => {
+interface IArticlePage {
+  slug: {
+    slug: string;
+  };
+}
+
+const ArticlePage: React.FC<IArticlePage> = ({ slug }) => {
   const dispatch = useDispatch();
-  const articles = useSelector((state) => state.articlesReducer.articles);
-  const users = useSelector((state) => state.usersReducer.users);
-  const isAuth = useSelector((state) => state.usersReducer.isAuth);
+  const articles = useSelector(
+    (state: rootState) => state.articlesReducer.articles
+  );
+  const users: any = useSelector(
+    (state: rootState) => state.usersReducer.users
+  );
+  const isAuth = useSelector((state: rootState) => state.usersReducer.isAuth);
   const completeDownloadArticle = useSelector(
-    (state) => state.articlesReducer.completeDownloadArticle
+    (state: rootState) => state.articlesReducer.completeDownloadArticle
   );
   const errorDownload = useSelector(
-    (state) => state.articlesReducer.errorDownload
+    (state: rootState) => state.articlesReducer.errorDownload
   );
   const modalConfirmationWindow = useSelector(
-    (state) => state.articlesReducer.modalConfirmationWindow
+    (state: rootState) => state.articlesReducer.modalConfirmationWindow
   );
 
   const getSlug = useCallback(() => {
@@ -59,7 +69,7 @@ const ArticlePage = ({ slug }) => {
   }
 
   if (articles !== null) {
-    const dateArticle = format(new Date(articles.updatedAt), 'MMMM dd, yyyy');
+    const dateArticle = format(new Date(articles.updatedAt), "MMMM dd, yyyy");
 
     const tag = articles.tagList.map((item) => (
       <span className={classes.articlePage__tag} key={item}>
@@ -130,10 +140,6 @@ const ArticlePage = ({ slug }) => {
     );
   }
   return null;
-};
-
-ArticlePage.propTypes = {
-  slug: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default ArticlePage;

@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import BlogService from '../../services/BlogService';
-import { actionArticles } from '../../redux/actions/listArticles';
-import classes from './Like.module.scss';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import BlogService from "../../services/BlogService";
+import { actionArticles } from "../../redux/actions/listArticles";
+import rootState from "../../types/rootState";
+import classes from "./Like.module.scss";
 
-const Like = ({ favorited, favoritesCount, slug }) => {
+interface ILike {
+  favorited: boolean;
+  favoritesCount: number;
+  slug: string;
+}
+
+const Like: React.FC<ILike> = ({ favorited, favoritesCount, slug }) => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.usersReducer.isAuth);
-  const [like, setLike] = useState(favorited);
-  const [likeCount, setLikeCount] = useState(favoritesCount);
+  const isAuth = useSelector((state: rootState) => state.usersReducer.isAuth);
+  const [like, setLike] = useState<boolean>(favorited);
+  const [likeCount, setLikeCount] = useState<number>(favoritesCount);
 
   const onLiked = () => {
     if (isAuth) {
@@ -35,7 +41,6 @@ const Like = ({ favorited, favoritesCount, slug }) => {
   return (
     <>
       <button
-        label="like"
         type="button"
         className={`${classes.like__button} ${classes.like__button} ${
           like ? `${classes.liked}` : `${classes.noLike}`
@@ -47,14 +52,4 @@ const Like = ({ favorited, favoritesCount, slug }) => {
   );
 };
 
-Like.defaultProps = {
-  favorited: false,
-  favoritesCount: 0,
-};
-
-Like.propTypes = {
-  favorited: PropTypes.bool,
-  favoritesCount: PropTypes.number,
-  slug: PropTypes.string.isRequired,
-};
 export default Like;

@@ -26,7 +26,7 @@ const CreateArticle: React.FC = () => {
     title: "",
     shortDescription: "",
     text: "",
-    tagList: [''],
+    tagList: [],
   };
 
   if (successfulCreateArticle) {
@@ -37,7 +37,6 @@ const CreateArticle: React.FC = () => {
   }
 
   const createArticle = (data: ICreateArticle) => {
-    console.log(data);
     new BlogService()
       .createArticle(data)
       .then((article) => {

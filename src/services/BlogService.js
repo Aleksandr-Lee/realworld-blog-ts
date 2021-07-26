@@ -87,7 +87,7 @@ export default class BlogService {
     return res;
   }
 
-  async updateUser(username, email, password, image = null) {
+  async updateUser(username, email, password, image) {
     const url = `${this.apiBase}user`;
     const request = {
       method: 'PUT',

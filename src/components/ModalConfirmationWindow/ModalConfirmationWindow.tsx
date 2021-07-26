@@ -1,20 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import BlogService from '../../services/BlogService';
-import route from '../../route';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import BlogService from "../../services/BlogService";
+import route from "../../route";
+import rootState from "../../types/rootState";
 import {
   actionSuccessfulDeleteArticle,
   actionModalConfirmationWindow,
-} from '../../redux/actions/listArticles';
-import exclamation from '../../Assets/Images/exclamation-circle.svg';
-import classes from './ModalConfirmationWindow.module.scss';
+} from "../../redux/actions/listArticles";
+import exclamation from "../../Assets/Images/exclamation-circle.svg";
+import classes from "./ModalConfirmationWindow.module.scss";
 
-const ModalConfirmationWindow = ({ slug }) => {
+interface IModalConfirmationWindow {
+  slug: {
+    slug: string;
+  };
+}
+
+const ModalConfirmationWindow: React.FC<IModalConfirmationWindow> = ({
+  slug,
+}) => {
   const dispatch = useDispatch();
   const successfulDeleteArticle = useSelector(
-    (state) => state.articlesReducer.successfulDeleteArticle
+    (state: rootState) => state.articlesReducer.successfulDeleteArticle
   );
 
   const onDeleteArticle = () => {
@@ -60,10 +68,6 @@ const ModalConfirmationWindow = ({ slug }) => {
       </div>
     </div>
   );
-};
-
-ModalConfirmationWindow.propTypes = {
-  slug: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default ModalConfirmationWindow;

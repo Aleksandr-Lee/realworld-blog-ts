@@ -1,33 +1,53 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { v4 } from 'uuid';
-import CreateEditForm from '../CreateEditForm';
-import LoadingIndicator from '../LoadingIndicator';
-import BlogService from '../../services/BlogService';
-import route from '../../route';
-import ErrorIndicator from '../ErrorIndicator';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { v4 } from "uuid";
+import CreateEditForm from "../CreateEditForm";
+import LoadingIndicator from "../LoadingIndicator";
+import BlogService from "../../services/BlogService";
+import route from "../../route";
+import rootState from "../../types/rootState";
+import { ICreateArticle } from "../../types/types";
+import ErrorIndicator from "../ErrorIndicator";
 import {
   actionArticles,
   actionCreateArticle,
   actionSuccessfulCreateArticle,
   actionCompleteDownloadArticle,
   actionErrorDownload,
-} from '../../redux/actions/listArticles';
+} from "../../redux/actions/listArticles";
 
-const EditArticle = ({ slug }) => {
+interface IEditArticle {
+  slug: {
+    slug: string;
+  };
+}
+
+interface ITags {
+  id: string;
+  text: string;
+}
+
+interface IValueInput {
+  title: string;
+  shortDescription: string;
+  text: string;
+  tagList: ITags[];
+}
+
+const EditArticle: React.FC<IEditArticle> = ({ slug }) => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.usersReducer.users);
   const successfulCreateArticle = useSelector(
-    (state) => state.articlesReducer.successfulCreateArticle
+    (state: rootState) => state.articlesReducer.successfulCreateArticle
   );
-  const articles = useSelector((state) => state.articlesReducer.articles);
+  const articles: any = useSelector(
+    (state: rootState) => state.articlesReducer.articles
+  );
   const completeDownloadArticle = useSelector(
-    (state) => state.articlesReducer.completeDownloadArticle
+    (state: rootState) => state.articlesReducer.completeDownloadArticle
   );
   const errorDownload = useSelector(
-    (state) => state.articlesReducer.errorDownload
+    (state: rootState) => state.articlesReducer.errorDownload
   );
 
   const getSlug = () => {
@@ -45,11 +65,11 @@ const EditArticle = ({ slug }) => {
     return <LoadingIndicator />;
   }
 
-  const valueInput = {
+  const valueInput: IValueInput = {
     title: articles.title,
     shortDescription: articles.description,
     text: articles.body,
-    tagList: articles.tagList.map((tag) => ({
+    tagList: articles.tagList.map((tag: string) => ({
       id: v4(),
       text: tag,
     })),
@@ -62,16 +82,11 @@ const EditArticle = ({ slug }) => {
     return <Redirect to={route.listArticles} />;
   }
 
-  const editArticle = ({ title, shortDescription, text, tagList }) => {
+  const editArticle = (data: ICreateArticle) => {
+    console.log(data);
+    const { title, shortDescription, text, tagList } = data;
     new BlogService()
-      .editArticle(
-        title,
-        shortDescription,
-        text,
-        tagList,
-        slug.slug,
-        users.user.token
-      )
+      .editArticle(title, shortDescription, text, tagList, slug.slug)
       .then((article) => {
         dispatch(actionCreateArticle(article));
         dispatch(actionSuccessfulCreateArticle(true));
@@ -92,10 +107,6 @@ const EditArticle = ({ slug }) => {
       valueInput={valueInput}
     />
   );
-};
-
-EditArticle.propTypes = {
-  slug: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default EditArticle;

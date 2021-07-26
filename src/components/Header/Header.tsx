@@ -1,15 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import noAvatar from '../../Assets/Images/noAvatar.svg';
-import route from '../../route';
-import { actionLogOut } from '../../redux/actions/users';
-import classes from './Header.module.scss';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import noAvatar from "../../Assets/Images/noAvatar.svg";
+import route from "../../route";
+import { actionLogOut } from "../../redux/actions/users";
+import rootState from "../../types/rootState";
+import classes from "./Header.module.scss";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.usersReducer.isAuth);
-  const users = useSelector((state) => state.usersReducer.users);
+  const isAuth = useSelector((state: rootState) => state.usersReducer.isAuth);
+  const users: any = useSelector(
+    (state: rootState) => state.usersReducer.users
+  );
 
   return (
     <header className={classes.header}>
@@ -36,11 +39,11 @@ const Header = () => {
               {users.user.username}
             </Link>
             <Link to={route.profile}>
-              {' '}
+              {" "}
               <img
                 className={classes.header__userFoto}
                 src={
-                  users.user.image === null || users.user.image === ''
+                  users.user.image === null || users.user.image === ""
                     ? noAvatar
                     : users.user.image
                 }

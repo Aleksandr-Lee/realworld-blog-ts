@@ -1,39 +1,40 @@
-import React, { useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Article from '../Article';
-import LoadingIndicator from '../LoadingIndicator';
-import PaginationArticle from '../PaginationArticle';
-import ErrorIndicator from '../ErrorIndicator';
-import BlogService from '../../services/BlogService';
+import React, { useCallback, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Article from "../Article";
+import LoadingIndicator from "../LoadingIndicator";
+import PaginationArticle from "../PaginationArticle";
+import ErrorIndicator from "../ErrorIndicator";
+import BlogService from "../../services/BlogService";
+import rootState from "../../types/rootState";
 import {
   actionListArticles,
   actionCompleteDownload,
   actionErrorDownload,
   actionArticlesCount,
   actionPage,
-} from '../../redux/actions/listArticles';
-import classes from './ListArticles.module.scss';
+} from "../../redux/actions/listArticles";
+import classes from "./ListArticles.module.scss";
 
-const ListArticles = () => {
+const ListArticles: React.FC = () => {
   const dispatch = useDispatch();
   const articlesList = useSelector(
-    (state) => state.articlesReducer.articlesList
+    (state: rootState) => state.articlesReducer.articlesList
   );
   const completeDownload = useSelector(
-    (state) => state.articlesReducer.completeDownload
+    (state: rootState) => state.articlesReducer.completeDownload
   );
   const errorDownload = useSelector(
-    (state) => state.articlesReducer.errorDownload
+    (state: rootState) => state.articlesReducer.errorDownload
   );
 
-  const page = useSelector((state) => state.articlesReducer.page);
+  const page = useSelector((state: rootState) => state.articlesReducer.page);
 
   const articlesCount = useSelector(
-    (state) => state.articlesReducer.articlesCount
+    (state: rootState) => state.articlesReducer.articlesCount
   );
 
   const articlesDisplay = useCallback(
-    (offset) => {
+    (offset: number) => {
       dispatch(actionCompleteDownload());
       new BlogService()
         .getListArticles(offset)
@@ -55,7 +56,7 @@ const ListArticles = () => {
     articlesDisplay(page);
   }, [articlesDisplay, page]);
 
-  const handlePageClick = (changePage) => {
+  const handlePageClick = (changePage: number) => {
     dispatch(actionPage(changePage));
   };
 
@@ -75,7 +76,6 @@ const ListArticles = () => {
       description={item.description}
       slug={item.slug}
       username={item.author.username}
-      body={item.body}
       favorited={item.favorited}
       favoritesCount={item.favoritesCount}
       image={item.author.image}

@@ -9,12 +9,19 @@ import classes from "./CreateEditForm.module.scss";
 interface ICreateEditForm {
   title: string;
   submit: (data: ICreateArticle) => void;
-  valueInput: any;
+  valueInput: IValueInput;
 }
 
 interface ITags {
   id: string;
   text: string;
+}
+
+interface IValueInput {
+  title: string;
+  shortDescription: string;
+  text: string;
+  tagList: ITags[];
 }
 
 const CreateEditForm: React.FC<ICreateEditForm> = ({
@@ -33,8 +40,7 @@ const CreateEditForm: React.FC<ICreateEditForm> = ({
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: ICreateArticle): void => {
-    console.log(data);
+  const onSubmit = (data: ICreateArticle) => {
     submit({
       ...data,
       tagList: tags.map((tag) => tag.text),
@@ -42,11 +48,10 @@ const CreateEditForm: React.FC<ICreateEditForm> = ({
   };
 
   const onAddTag = () => {
-    const newTags = (state: any) => [...state, { id: v4(), text: "" }];
+    const newTags = (state: ITags[]) => [...state, { id: v4(), text: "" }];
     setTags(newTags);
   };
-
-  const onDeleteTag = (id?: string): void => {
+  const onDeleteTag = (id?: string) => {
     const newTags = tags.filter((tag) => tag.id !== id);
     setTags(newTags);
   };
@@ -159,20 +164,5 @@ const CreateEditForm: React.FC<ICreateEditForm> = ({
     </div>
   );
 };
-
-// CreateEditForm.defaultProps = {
-//   submit: () => {},
-// };
-
-// CreateEditForm.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   submit: PropTypes.func,
-//   valueInput: PropTypes.shape({
-//     title: PropTypes.string,
-//     shortDescription: PropTypes.string,
-//     text: PropTypes.string,
-//     tagList: PropTypes.arrayOf(PropTypes.objectOf),
-//   }).isRequired,
-// };
 
 export default CreateEditForm;
