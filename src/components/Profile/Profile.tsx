@@ -5,6 +5,7 @@ import BlogService from "../../services/BlogService";
 import ErrorIndicator from "../ErrorIndicator";
 import Inputs from "../Inputs";
 import constants from "../../constants";
+import rootState from "../../types/rootState";
 import {
   actionUpdateUser,
   actionSuccessfulEditProfile,
@@ -13,15 +14,24 @@ import { actionErrorDownload } from "../../redux/actions/listArticles";
 
 import classes from "./Profile.module.scss";
 
-const Profile = () => {
-  const [blockForm, setBlockForm] = useState(false);
+interface ISubmit {
+  userName: string;
+  emailAddress: string;
+  password: string;
+  avatarImage: string;
+}
+
+const Profile: React.FC = () => {
+  const [blockForm, setBlockForm] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.usersReducer.users);
+  const users: any = useSelector(
+    (state: rootState) => state.usersReducer.users
+  );
   const successEditProfile = useSelector(
-    (state) => state.usersReducer.successfulEditProfile
+    (state: rootState) => state.usersReducer.successfulEditProfile
   );
   const errorDownload = useSelector(
-    (state) => state.articlesReducer.errorDownload
+    (state: rootState) => state.articlesReducer.errorDownload
   );
   const {
     register,
@@ -29,7 +39,12 @@ const Profile = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ userName, emailAddress, password, avatarImage }) => {
+  const onSubmit = ({
+    userName,
+    emailAddress,
+    password,
+    avatarImage,
+  }: ISubmit) => {
     setBlockForm(true);
     new BlogService()
       .updateUser(userName, emailAddress, password, avatarImage)

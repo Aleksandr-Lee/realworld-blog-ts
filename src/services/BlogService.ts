@@ -1,14 +1,14 @@
-import LocalStorageService from './LocalStorageService';
-
+import LocalStorageService from "./LocalStorageService";
+import { ICreateArticle } from "../types/types";
 const LIMIT_ARTICLES = 5;
 
 export default class BlogService {
-  apiBase = 'https://conduit.productionready.io/api/';
+  apiBase = "https://conduit.productionready.io/api/";
 
   postRequest() {
     const token = LocalStorageService.getToken();
-    const headers = {
-      'Content-Type': 'application/json;charset=utf-8',
+    const headers: any = {
+      "Content-Type": "application/json;charset=utf-8",
     };
     if (token) {
       headers.Authorization = `Token ${token}`;
@@ -16,7 +16,7 @@ export default class BlogService {
     return headers;
   }
 
-  async getResource(url, postRequest = null) {
+  async getResource(url: string, postRequest: any) {
     const res = await fetch(url, postRequest)
       .then((response) => response)
       .catch((error) => error);
@@ -27,37 +27,37 @@ export default class BlogService {
     const offset = (changeOffset - 1) * LIMIT_ARTICLES;
     const url = `${this.apiBase}articles?limit=${LIMIT_ARTICLES}&offset=${offset}`;
     const request = {
-      method: 'GET',
+      method: "GET",
       headers: this.postRequest(),
     };
     const res = await this.getResource(url, request);
     return res;
   }
 
-  async getArticle(slug) {
+  async getArticle(slug: string) {
     const url = `${this.apiBase}articles/${slug}`;
     const request = {
-      method: 'GET',
+      method: "GET",
       headers: this.postRequest(),
     };
     const res = await this.getResource(url, request);
     return res;
   }
 
-  async myArticles(users) {
+  async myArticles(users: string) {
     const url = `${this.apiBase}articles?author=${users}`;
     const request = {
-      method: 'GET',
+      method: "GET",
       headers: this.postRequest(),
     };
     const res = await this.getResource(url, request);
     return res;
   }
 
-  async setUserRegistration(username, email, password) {
+  async setUserRegistration(username: string, email: string, password: string) {
     const url = `${this.apiBase}users`;
     const request = {
-      method: 'POST',
+      method: "POST",
       headers: this.postRequest(),
       body: JSON.stringify({
         user: {
@@ -71,10 +71,10 @@ export default class BlogService {
     return res;
   }
 
-  async getUsers(email, password) {
+  async getUsers(email: string, password: string) {
     const url = `${this.apiBase}users/login`;
     const request = {
-      method: 'POST',
+      method: "POST",
       headers: this.postRequest(),
       body: JSON.stringify({
         user: {
@@ -87,10 +87,15 @@ export default class BlogService {
     return res;
   }
 
-  async updateUser(username, email, password, image) {
+  async updateUser(
+    username: string,
+    email: string,
+    password: string,
+    image: string
+  ) {
     const url = `${this.apiBase}user`;
     const request = {
-      method: 'PUT',
+      method: "PUT",
       headers: this.postRequest(),
       body: JSON.stringify({
         user: {
@@ -108,17 +113,22 @@ export default class BlogService {
   async getCurrentUsers() {
     const url = `${this.apiBase}user`;
     const request = {
-      method: 'GET',
+      method: "GET",
       headers: this.postRequest(),
     };
     const res = await this.getResource(url, request);
     return res;
   }
 
-  async createArticle({ title, shortDescription, text, tagList }) {
+  async createArticle({
+    title,
+    shortDescription,
+    text,
+    tagList,
+  }: ICreateArticle) {
     const url = `${this.apiBase}articles`;
     const request = {
-      method: 'POST',
+      method: "POST",
       headers: this.postRequest(),
       body: JSON.stringify({
         article: {
@@ -133,10 +143,16 @@ export default class BlogService {
     return res;
   }
 
-  async editArticle(title, description, body, tagList, slug) {
+  async editArticle(
+    title: string,
+    description: string,
+    body: string,
+    tagList: string[],
+    slug: string
+  ) {
     const url = `${this.apiBase}articles/${slug}`;
     const request = {
-      method: 'PUT',
+      method: "PUT",
       headers: this.postRequest(),
       body: JSON.stringify({
         article: {
@@ -151,30 +167,30 @@ export default class BlogService {
     return res;
   }
 
-  async deleteArticle(slug) {
+  async deleteArticle(slug: string) {
     const url = `${this.apiBase}/articles/${slug}`;
     const request = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: this.postRequest(),
     };
     const res = await this.getResource(url, request);
     return res;
   }
 
-  async likeArticle(slug) {
+  async likeArticle(slug: string) {
     const url = `${this.apiBase}/articles/${slug}/favorite`;
     const request = {
-      method: 'POST',
+      method: "POST",
       headers: this.postRequest(),
     };
     const res = await this.getResource(url, request);
     return res;
   }
 
-  async dislikeArticle(slug) {
+  async dislikeArticle(slug: string) {
     const url = `${this.apiBase}/articles/${slug}/favorite`;
     const request = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: this.postRequest(),
     };
     const res = await this.getResource(url, request);

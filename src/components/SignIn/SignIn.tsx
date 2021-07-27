@@ -1,29 +1,35 @@
-import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import BlogService from '../../services/BlogService';
-import Inputs from '../Inputs';
-import route from '../../route';
-import ErrorIndicator from '../ErrorIndicator';
+import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import BlogService from "../../services/BlogService";
+import Inputs from "../Inputs";
+import route from "../../route";
+import ErrorIndicator from "../ErrorIndicator";
+import rootState from "../../types/rootState";
 import {
   actionGetUser,
   actionSuccessfulLogin,
-} from '../../redux/actions/users';
-import classes from './SignIn.module.scss';
+} from "../../redux/actions/users";
+import classes from "./SignIn.module.scss";
 
-const SignIn = () => {
+interface ISubmit {
+  emailAddress: string;
+  password: string;
+}
+
+const SignIn: React.FC = () => {
   const [blockForm, setBlockForm] = useState(false);
   const dispatch = useDispatch();
   const successfulLogin = useSelector(
-    (state) => state.usersReducer.successfulLogin
+    (state: rootState) => state.usersReducer.successfulLogin
   );
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = ({ emailAddress, password }) => {
+  const onSubmit = ({ emailAddress, password }: ISubmit) => {
     setBlockForm(true);
     new BlogService()
       .getUsers(emailAddress, password)
@@ -35,7 +41,7 @@ const SignIn = () => {
           dispatch(actionSuccessfulLogin(true));
           setBlockForm(false);
           dispatch(actionGetUser(users));
-          localStorage.setItem('token', JSON.stringify(users.user.token));
+          localStorage.setItem("token", JSON.stringify(users.user.token));
         }
       })
       .catch((error) => {
@@ -44,7 +50,7 @@ const SignIn = () => {
   };
 
   const loginFailed =
-    typeof successfulLogin === 'object' ? (
+    typeof successfulLogin === "object" ? (
       <p className={classes.loginFailed}>
         User with such data is not registered
       </p>
@@ -56,11 +62,11 @@ const SignIn = () => {
     }, 5000);
   }
 
-  if (typeof successfulLogin === 'string') {
+  if (typeof successfulLogin === "string") {
     return <ErrorIndicator />;
   }
 
-  if (!successfulLogin || typeof successfulLogin === 'object') {
+  if (!successfulLogin || typeof successfulLogin === "object") {
     return (
       <div className={classes.loginForm}>
         {loginFailed}
@@ -78,12 +84,12 @@ const SignIn = () => {
                 errors={errors}
                 errorObject={[
                   {
-                    typeError: 'required',
-                    message: 'This is a required field',
+                    typeError: "required",
+                    message: "This is a required field",
                   },
                   {
-                    typeError: 'pattern',
-                    message: 'Invalid email address',
+                    typeError: "pattern",
+                    message: "Invalid email address",
                   },
                 ]}
                 pattern={/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/}
@@ -98,8 +104,8 @@ const SignIn = () => {
                 errors={errors}
                 errorObject={[
                   {
-                    typeError: 'required',
-                    message: 'This is a required field',
+                    typeError: "required",
+                    message: "This is a required field",
                   },
                 ]}
               />

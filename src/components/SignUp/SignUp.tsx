@@ -6,20 +6,27 @@ import BlogService from "../../services/BlogService";
 import ErrorIndicator from "../ErrorIndicator";
 import constants from "../../constants";
 import route from "../../route";
+import rootState from "../../types/rootState";
 import Inputs from "../Inputs";
 import { actionSuccessfulCreate } from "../../redux/actions/users";
 import { actionErrorDownload } from "../../redux/actions/listArticles";
 import classes from "./SignUp.module.scss";
 
-const SignUp = () => {
-  const [blockForm, setBlockForm] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+interface ISubmit {
+  userName: string;
+  emailAddress: string;
+  password: string;
+}
+
+const SignUp: React.FC = () => {
+  const [blockForm, setBlockForm] = useState<boolean>(false);
+  const [redirect, setRedirect] = useState<boolean>(false);
   const dispatch = useDispatch();
   const successfulCreate = useSelector(
-    (state) => state.usersReducer.successfulCreate
+    (state: rootState) => state.usersReducer.successfulCreate
   );
   const errorDownload = useSelector(
-    (state) => state.articlesReducer.errorDownload
+    (state: rootState) => state.articlesReducer.errorDownload
   );
   const {
     register,
@@ -28,7 +35,7 @@ const SignUp = () => {
     watch,
   } = useForm();
 
-  const onSubmit = ({ userName, emailAddress, password }) => {
+  const onSubmit = ({ userName, emailAddress, password }: ISubmit) => {
     setBlockForm(true);
     new BlogService()
       .setUserRegistration(userName, emailAddress, password)

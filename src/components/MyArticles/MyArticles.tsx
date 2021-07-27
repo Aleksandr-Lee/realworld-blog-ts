@@ -1,26 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Article from '../Article';
-import BlogService from '../../services/BlogService';
-import LoadingIndicator from '../LoadingIndicator';
-import ErrorIndicator from '../ErrorIndicator';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Article from "../Article";
+import BlogService from "../../services/BlogService";
+import LoadingIndicator from "../LoadingIndicator";
+import ErrorIndicator from "../ErrorIndicator";
+import rootState from "../../types/rootState";
 import {
   actionMyArticles,
   actionCompleteDownload,
   actionErrorDownload,
-} from '../../redux/actions/listArticles';
-import classes from './MyArticles.module.scss';
+} from "../../redux/actions/listArticles";
+import classes from "./MyArticles.module.scss";
 
-const MyArticles = () => {
-  const [countArticles, setCountArticles] = useState(0);
+const MyArticles: React.FC = () => {
+  const [countArticles, setCountArticles] = useState<number>(0);
   const dispatch = useDispatch();
-  const myArticles = useSelector((state) => state.articlesReducer.myArticles);
-  const users = useSelector((state) => state.usersReducer.users);
+  const myArticles = useSelector(
+    (state: rootState) => state.articlesReducer.myArticles
+  );
+  const users: any = useSelector(
+    (state: rootState) => state.usersReducer.users
+  );
   const completeDownload = useSelector(
-    (state) => state.articlesReducer.completeDownload
+    (state: rootState) => state.articlesReducer.completeDownload
   );
   const errorDownload = useSelector(
-    (state) => state.articlesReducer.errorDownload
+    (state: rootState) => state.articlesReducer.errorDownload
   );
 
   useEffect(() => {
@@ -44,7 +49,6 @@ const MyArticles = () => {
       description={item.description}
       slug={item.slug}
       username={item.author.username}
-      body={item.body}
       favorited={item.favorited}
       favoritesCount={item.favoritesCount}
       image={item.author.image}

@@ -1,3 +1,10 @@
+export interface IAuthor {
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
+}
+
 export interface IArticle {
   slug: string;
   title: string;
@@ -8,12 +15,7 @@ export interface IArticle {
   updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
-  author: {
-    username: string;
-    bio: string;
-    image: string;
-    following: boolean;
-  };
+  author: IAuthor;
 }
 
 export interface IUserAuth {

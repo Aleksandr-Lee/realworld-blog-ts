@@ -14,12 +14,13 @@ import MyArticles from "../MyArticles";
 import EditArticle from "../EditArticle";
 import PrivateRoute from "../PrivateRoute";
 import route from "../../route";
+import rootState from "../../types/rootState";
 import { actionGetUser } from "../../redux/actions/users";
 import classes from "./App.module.scss";
 
-const App = () => {
+const App: React.FC = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.usersReducer.isAuth);
+  const isAuth = useSelector((state: rootState) => state.usersReducer.isAuth);
   useEffect(() => {
     const token = LocalStorageService.getToken();
     if (token) {
