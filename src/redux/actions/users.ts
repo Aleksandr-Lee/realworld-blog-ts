@@ -2,7 +2,7 @@ import ActionTypes from "../actionsTypes";
 import { IUsers } from "../../types/types";
 import { UsersTypes } from "../../types/usersTypes";
 
-export const actionGetUser = (users: boolean | IUsers): UsersTypes => ({
+export const actionGetUser = (users: IUsers): UsersTypes => ({
   type: ActionTypes.getUser,
   users,
 });

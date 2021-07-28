@@ -6,6 +6,7 @@ import ErrorIndicator from "../ErrorIndicator";
 import Inputs from "../Inputs";
 import constants from "../../constants";
 import rootState from "../../types/rootState";
+import { IUsers, ISubmitUser } from "../../types/types";
 import {
   actionUpdateUser,
   actionSuccessfulEditProfile,
@@ -14,17 +15,10 @@ import { actionErrorDownload } from "../../redux/actions/listArticles";
 
 import classes from "./Profile.module.scss";
 
-interface ISubmit {
-  userName: string;
-  emailAddress: string;
-  password: string;
-  avatarImage: string;
-}
-
 const Profile: React.FC = () => {
   const [blockForm, setBlockForm] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const users: any = useSelector(
+  const users: IUsers = useSelector(
     (state: rootState) => state.usersReducer.users
   );
   const successEditProfile = useSelector(
@@ -44,7 +38,7 @@ const Profile: React.FC = () => {
     emailAddress,
     password,
     avatarImage,
-  }: ISubmit) => {
+  }: ISubmitUser) => {
     setBlockForm(true);
     new BlogService()
       .updateUser(userName, emailAddress, password, avatarImage)

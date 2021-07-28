@@ -5,7 +5,7 @@ import { ArticlesListType } from "../../types/articlesListTypes";
 interface StateInitial {
   myArticles: IArticle[];
   articlesList: IArticle[];
-  articles: IArticle | null;
+  articles: IArticle;
   completeDownload: boolean;
   completeDownloadArticle: boolean;
   errorDownload: boolean;
@@ -20,7 +20,7 @@ interface StateInitial {
 const initialState: StateInitial = {
   myArticles: [],
   articlesList: [],
-  articles: null,
+  articles: {} as IArticle,
   completeDownload: false,
   completeDownloadArticle: false,
   errorDownload: false,
@@ -65,7 +65,7 @@ const articlesReducer = (
     case ActionTypes.completeDownloadArticle:
       return {
         ...state,
-        articles: null,
+        articles: {} as IArticle,
         completeDownloadArticle: false,
       };
     case ActionTypes.errorDownload:

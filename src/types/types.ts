@@ -18,32 +18,17 @@ export interface IArticle {
   author: IAuthor;
 }
 
-export interface IUserAuth {
-  email: string;
-  password: string;
-}
-
-export interface IUserRegistration {
-  email: string;
-  bio: string | null;
-  image: string;
-}
-
-export interface IUserUpdate {
-  username: string;
-  email: string;
-  password: string;
-}
-
 export interface IUsers {
-  bio: string | null;
-  createdAt: string;
-  email: string;
-  id: number;
-  image: string;
-  token: string;
-  updatedAt: string;
-  username: string;
+  user: {
+    bio: string | null;
+    createdAt: string;
+    email: string;
+    id: number;
+    image: string | undefined;
+    token: string;
+    updatedAt: string;
+    username: string;
+  };
 }
 
 export interface ICreateArticle {
@@ -51,4 +36,29 @@ export interface ICreateArticle {
   shortDescription: string;
   text: string;
   tagList: string[];
+}
+
+export interface ISlug {
+  slug: {
+    slug: string;
+  };
+}
+
+export interface ITags {
+  id: string;
+  text: string;
+}
+
+export interface IValueInput {
+  title: string;
+  shortDescription: string;
+  text: string;
+  tagList: ITags[];
+}
+
+export interface ISubmitUser {
+  userName: string;
+  emailAddress: string;
+  password: string;
+  avatarImage: string;
 }

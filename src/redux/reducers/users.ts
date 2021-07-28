@@ -3,7 +3,7 @@ import { IUsers } from "../../types/types";
 import { UsersTypes } from "../../types/usersTypes";
 
 interface StateInitial {
-  users: boolean | IUsers;
+  users: IUsers;
   isAuth: boolean;
   successfulLogin: object | boolean | string;
   successfulCreate: object | boolean | string;
@@ -11,7 +11,7 @@ interface StateInitial {
 }
 
 const initialState: StateInitial = {
-  users: false,
+  users: {} as IUsers,
   isAuth: false,
   successfulLogin: false,
   successfulCreate: false,
@@ -33,7 +33,7 @@ const usersReducer = (
       localStorage.removeItem("token");
       return {
         ...state,
-        users: false,
+        users: {} as IUsers,
         isAuth: false,
       };
     case actionTypes.updateUser:

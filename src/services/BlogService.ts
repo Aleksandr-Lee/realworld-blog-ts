@@ -2,12 +2,17 @@ import LocalStorageService from "./LocalStorageService";
 import { ICreateArticle } from "../types/types";
 const LIMIT_ARTICLES = 5;
 
+interface IHeaders {
+  "Content-Type": string;
+  Authorization?: string;
+}
+
 export default class BlogService {
   apiBase = "https://conduit.productionready.io/api/";
 
   postRequest() {
     const token = LocalStorageService.getToken();
-    const headers: any = {
+    const headers: IHeaders = {
       "Content-Type": "application/json;charset=utf-8",
     };
     if (token) {
@@ -23,7 +28,7 @@ export default class BlogService {
     return res.json();
   }
 
-  async getListArticles(changeOffset = 1) {
+  async getListArticles(changeOffset: number = 1) {
     const offset = (changeOffset - 1) * LIMIT_ARTICLES;
     const url = `${this.apiBase}articles?limit=${LIMIT_ARTICLES}&offset=${offset}`;
     const request = {

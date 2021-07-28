@@ -16,20 +16,15 @@ import ErrorIndicator from "../ErrorIndicator";
 import Like from "../Like";
 import route from "../../route";
 import rootState from "../../types/rootState";
+import { IUsers, ISlug } from "../../types/types";
 import classes from "./ArticlePage.module.scss";
 
-interface IArticlePage {
-  slug: {
-    slug: string;
-  };
-}
-
-const ArticlePage: React.FC<IArticlePage> = ({ slug }) => {
+const ArticlePage: React.FC<ISlug> = ({ slug }) => {
   const dispatch = useDispatch();
   const articles = useSelector(
     (state: rootState) => state.articlesReducer.articles
   );
-  const users: any = useSelector(
+  const users: IUsers = useSelector(
     (state: rootState) => state.usersReducer.users
   );
   const isAuth = useSelector((state: rootState) => state.usersReducer.isAuth);

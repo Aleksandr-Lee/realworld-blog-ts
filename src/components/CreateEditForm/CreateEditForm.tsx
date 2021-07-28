@@ -1,27 +1,14 @@
 import React, { useState } from "react";
-// import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { v4 } from "uuid";
 import Inputs from "../Inputs";
-import { ICreateArticle } from "../../types/types";
+import { ICreateArticle, ITags, IValueInput } from "../../types/types";
 import classes from "./CreateEditForm.module.scss";
 
 interface ICreateEditForm {
   title: string;
   submit: (data: ICreateArticle) => void;
   valueInput: IValueInput;
-}
-
-interface ITags {
-  id: string;
-  text: string;
-}
-
-interface IValueInput {
-  title: string;
-  shortDescription: string;
-  text: string;
-  tagList: ITags[];
 }
 
 const CreateEditForm: React.FC<ICreateEditForm> = ({

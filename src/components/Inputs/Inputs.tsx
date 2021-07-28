@@ -1,5 +1,4 @@
 import React from "react";
-// import PropTypes from "prop-types";
 import classes from "./Inputs.module.scss";
 
 interface IErrorObject {
@@ -77,27 +76,5 @@ const Inputs: React.FC<IInputs> = ({
     </>
   );
 };
-
-// Inputs.defaultProps = {
-//   defaultValue: "",
-//   pattern: undefined,
-//   minLength: undefined,
-//   maxLength: undefined,
-// };
-
-// Inputs.propTypes = {
-//   id: PropTypes.string.isRequired,
-//   label: PropTypes.string.isRequired,
-//   type: PropTypes.string.isRequired,
-//   errors: PropTypes.objectOf(PropTypes.object).isRequired,
-//   placeholder: PropTypes.string.isRequired,
-//   errorObject: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   defaultValue: PropTypes.string,
-//   register: PropTypes.func.isRequired,
-//   required: PropTypes.bool.isRequired,
-//   pattern: PropTypes.objectOf(PropTypes.string),
-//   minLength: PropTypes.number,
-//   maxLength: PropTypes.number,
-// };
 
 export default Inputs;

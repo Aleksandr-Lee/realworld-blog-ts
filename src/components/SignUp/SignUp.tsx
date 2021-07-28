@@ -7,16 +7,11 @@ import ErrorIndicator from "../ErrorIndicator";
 import constants from "../../constants";
 import route from "../../route";
 import rootState from "../../types/rootState";
+import { ISubmitUser } from "../../types/types";
 import Inputs from "../Inputs";
 import { actionSuccessfulCreate } from "../../redux/actions/users";
 import { actionErrorDownload } from "../../redux/actions/listArticles";
 import classes from "./SignUp.module.scss";
-
-interface ISubmit {
-  userName: string;
-  emailAddress: string;
-  password: string;
-}
 
 const SignUp: React.FC = () => {
   const [blockForm, setBlockForm] = useState<boolean>(false);
@@ -35,7 +30,7 @@ const SignUp: React.FC = () => {
     watch,
   } = useForm();
 
-  const onSubmit = ({ userName, emailAddress, password }: ISubmit) => {
+  const onSubmit = ({ userName, emailAddress, password }: ISubmitUser) => {
     setBlockForm(true);
     new BlogService()
       .setUserRegistration(userName, emailAddress, password)

@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import BlogService from "../../services/BlogService";
 import route from "../../route";
 import rootState from "../../types/rootState";
+import { ISlug } from "../../types/types";
 import {
   actionSuccessfulDeleteArticle,
   actionModalConfirmationWindow,
@@ -11,15 +12,7 @@ import {
 import exclamation from "../../Assets/Images/exclamation-circle.svg";
 import classes from "./ModalConfirmationWindow.module.scss";
 
-interface IModalConfirmationWindow {
-  slug: {
-    slug: string;
-  };
-}
-
-const ModalConfirmationWindow: React.FC<IModalConfirmationWindow> = ({
-  slug,
-}) => {
+const ModalConfirmationWindow: React.FC<ISlug> = ({ slug }) => {
   const dispatch = useDispatch();
   const successfulDeleteArticle = useSelector(
     (state: rootState) => state.articlesReducer.successfulDeleteArticle

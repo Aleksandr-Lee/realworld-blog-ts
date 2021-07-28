@@ -5,12 +5,13 @@ import noAvatar from "../../Assets/Images/noAvatar.svg";
 import route from "../../route";
 import { actionLogOut } from "../../redux/actions/users";
 import rootState from "../../types/rootState";
+import { IUsers } from "../../types/types";
 import classes from "./Header.module.scss";
 
 const Header = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state: rootState) => state.usersReducer.isAuth);
-  const users: any = useSelector(
+  const users: IUsers = useSelector(
     (state: rootState) => state.usersReducer.users
   );
 

@@ -7,19 +7,15 @@ import Inputs from "../Inputs";
 import route from "../../route";
 import ErrorIndicator from "../ErrorIndicator";
 import rootState from "../../types/rootState";
+import { ISubmitUser } from "../../types/types";
 import {
   actionGetUser,
   actionSuccessfulLogin,
 } from "../../redux/actions/users";
 import classes from "./SignIn.module.scss";
 
-interface ISubmit {
-  emailAddress: string;
-  password: string;
-}
-
 const SignIn: React.FC = () => {
-  const [blockForm, setBlockForm] = useState(false);
+  const [blockForm, setBlockForm] = useState<boolean>(false);
   const dispatch = useDispatch();
   const successfulLogin = useSelector(
     (state: rootState) => state.usersReducer.successfulLogin
@@ -29,7 +25,7 @@ const SignIn: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = ({ emailAddress, password }: ISubmit) => {
+  const onSubmit = ({ emailAddress, password }: ISubmitUser) => {
     setBlockForm(true);
     new BlogService()
       .getUsers(emailAddress, password)

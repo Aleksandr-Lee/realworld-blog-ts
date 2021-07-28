@@ -5,6 +5,7 @@ import BlogService from "../../services/BlogService";
 import LoadingIndicator from "../LoadingIndicator";
 import ErrorIndicator from "../ErrorIndicator";
 import rootState from "../../types/rootState";
+import { IUsers } from "../../types/types";
 import {
   actionMyArticles,
   actionCompleteDownload,
@@ -18,7 +19,7 @@ const MyArticles: React.FC = () => {
   const myArticles = useSelector(
     (state: rootState) => state.articlesReducer.myArticles
   );
-  const users: any = useSelector(
+  const users: IUsers = useSelector(
     (state: rootState) => state.usersReducer.users
   );
   const completeDownload = useSelector(

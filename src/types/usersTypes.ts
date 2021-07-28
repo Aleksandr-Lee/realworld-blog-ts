@@ -3,7 +3,7 @@ import { IUsers } from "./types";
 
 interface IActionGetUser {
   type: typeof ActionTypes.getUser;
-  users: boolean | IUsers;
+  users: IUsers;
 }
 
 interface IActionLogOut {

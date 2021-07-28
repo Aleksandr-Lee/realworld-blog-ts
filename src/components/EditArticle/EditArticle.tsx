@@ -7,7 +7,12 @@ import LoadingIndicator from "../LoadingIndicator";
 import BlogService from "../../services/BlogService";
 import route from "../../route";
 import rootState from "../../types/rootState";
-import { ICreateArticle } from "../../types/types";
+import {
+  ICreateArticle,
+  ISlug,
+  IValueInput,
+  IArticle,
+} from "../../types/types";
 import ErrorIndicator from "../ErrorIndicator";
 import {
   actionArticles,
@@ -17,30 +22,12 @@ import {
   actionErrorDownload,
 } from "../../redux/actions/listArticles";
 
-interface IEditArticle {
-  slug: {
-    slug: string;
-  };
-}
-
-interface ITags {
-  id: string;
-  text: string;
-}
-
-interface IValueInput {
-  title: string;
-  shortDescription: string;
-  text: string;
-  tagList: ITags[];
-}
-
-const EditArticle: React.FC<IEditArticle> = ({ slug }) => {
+const EditArticle: React.FC<ISlug> = ({ slug }) => {
   const dispatch = useDispatch();
   const successfulCreateArticle = useSelector(
     (state: rootState) => state.articlesReducer.successfulCreateArticle
   );
-  const articles: any = useSelector(
+  const articles: IArticle = useSelector(
     (state: rootState) => state.articlesReducer.articles
   );
   const completeDownloadArticle = useSelector(
@@ -49,6 +36,7 @@ const EditArticle: React.FC<IEditArticle> = ({ slug }) => {
   const errorDownload = useSelector(
     (state: rootState) => state.articlesReducer.errorDownload
   );
+  console.log(articles);
 
   const getSlug = () => {
     dispatch(actionCompleteDownloadArticle());
@@ -83,7 +71,6 @@ const EditArticle: React.FC<IEditArticle> = ({ slug }) => {
   }
 
   const editArticle = (data: ICreateArticle) => {
-    console.log(data);
     const { title, shortDescription, text, tagList } = data;
     new BlogService()
       .editArticle(title, shortDescription, text, tagList, slug.slug)
