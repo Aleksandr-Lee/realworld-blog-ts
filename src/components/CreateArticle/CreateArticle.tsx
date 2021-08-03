@@ -13,7 +13,7 @@ import {
   actionErrorDownload,
 } from "../../redux/actions/listArticles";
 
-const CreateArticle: React.FC = () => {
+const CreateArticle = () => {
   const dispatch = useDispatch();
   const successfulCreateArticle = useSelector(
     (state: rootState) => state.articlesReducer.successfulCreateArticle

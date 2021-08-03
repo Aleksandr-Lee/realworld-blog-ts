@@ -13,7 +13,7 @@ import { actionSuccessfulCreate } from "../../redux/actions/users";
 import { actionErrorDownload } from "../../redux/actions/listArticles";
 import classes from "./SignUp.module.scss";
 
-const SignUp: React.FC = () => {
+const SignUp = () => {
   const [blockForm, setBlockForm] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
   const dispatch = useDispatch();

@@ -12,7 +12,7 @@ import {
 import exclamation from "../../Assets/Images/exclamation-circle.svg";
 import classes from "./ModalConfirmationWindow.module.scss";
 
-const ModalConfirmationWindow: React.FC<ISlug> = ({ slug }) => {
+const ModalConfirmationWindow = ({ slug }: ISlug) => {
   const dispatch = useDispatch();
   const successfulDeleteArticle = useSelector(
     (state: rootState) => state.articlesReducer.successfulDeleteArticle

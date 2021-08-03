@@ -6,16 +6,19 @@ export interface IAuthor {
 }
 
 export interface IArticle {
-  slug: string;
-  title: string;
-  description: string;
-  body: string;
-  tagList: string[];
-  createdAt: string;
-  updatedAt: string;
-  favorited: boolean;
-  favoritesCount: number;
-  author: IAuthor;
+//   articles: {
+    slug: string;
+    title: string;
+    description: string;
+    body: string;
+    tagList: string[];
+    createdAt: string;
+    updatedAt: string;
+    favorited: boolean;
+    favoritesCount: number;
+    author: IAuthor;
+//   };
+  articlesCount: number;
 }
 
 export interface IUsers {

@@ -25,7 +25,7 @@ interface IInputs {
   defaultValue?: string;
 }
 
-const Inputs: React.FC<IInputs> = ({
+const Inputs = ({
   label,
   register,
   required,
@@ -38,7 +38,7 @@ const Inputs: React.FC<IInputs> = ({
   minLength,
   maxLength,
   defaultValue,
-}) => {
+}: IInputs) => {
   return (
     <>
       <label className={classes.form__label} htmlFor={id}>

@@ -18,7 +18,7 @@ import rootState from "../../types/rootState";
 import { actionGetUser } from "../../redux/actions/users";
 import classes from "./App.module.scss";
 
-const App: React.FC = () => {
+const App = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state: rootState) => state.usersReducer.isAuth);
   useEffect(() => {

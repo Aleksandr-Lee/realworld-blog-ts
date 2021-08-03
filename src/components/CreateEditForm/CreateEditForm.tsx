@@ -11,11 +11,7 @@ interface ICreateEditForm {
   valueInput: IValueInput;
 }
 
-const CreateEditForm: React.FC<ICreateEditForm> = ({
-  title,
-  submit,
-  valueInput,
-}) => {
+const CreateEditForm = ({ title, submit, valueInput }: ICreateEditForm) => {
   const tagValue = !valueInput.tagList.length
     ? [{ id: v4(), text: "" }]
     : valueInput.tagList;

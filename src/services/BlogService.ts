@@ -22,9 +22,8 @@ export default class BlogService {
   }
 
   async getResource(url: string, postRequest: any) {
-    const res = await fetch(url, postRequest)
-      .then((response) => response)
-      .catch((error) => error);
+    const res = await fetch(url, postRequest).then((response) => response);
+    // .catch((error) => error);
     return res.json();
   }
 

@@ -15,7 +15,7 @@ import { actionErrorDownload } from "../../redux/actions/listArticles";
 
 import classes from "./Profile.module.scss";
 
-const Profile: React.FC = () => {
+const Profile = () => {
   const [blockForm, setBlockForm] = useState<boolean>(false);
   const dispatch = useDispatch();
   const users: IUsers = useSelector(

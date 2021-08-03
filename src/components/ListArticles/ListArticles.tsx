@@ -15,7 +15,7 @@ import {
 } from "../../redux/actions/listArticles";
 import classes from "./ListArticles.module.scss";
 
-const ListArticles: React.FC = () => {
+const ListArticles = () => {
   const dispatch = useDispatch();
   const articlesList = useSelector(
     (state: rootState) => state.articlesReducer.articlesList

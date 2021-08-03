@@ -22,7 +22,7 @@ import {
   actionErrorDownload,
 } from "../../redux/actions/listArticles";
 
-const EditArticle: React.FC<ISlug> = ({ slug }) => {
+const EditArticle = ({ slug }: ISlug) => {
   const dispatch = useDispatch();
   const successfulCreateArticle = useSelector(
     (state: rootState) => state.articlesReducer.successfulCreateArticle

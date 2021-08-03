@@ -14,7 +14,7 @@ import {
 } from "../../redux/actions/users";
 import classes from "./SignIn.module.scss";
 
-const SignIn: React.FC = () => {
+const SignIn = () => {
   const [blockForm, setBlockForm] = useState<boolean>(false);
   const dispatch = useDispatch();
   const successfulLogin = useSelector(

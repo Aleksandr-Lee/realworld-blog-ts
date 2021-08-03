@@ -11,7 +11,7 @@ interface ILike {
   slug: string;
 }
 
-const Like: React.FC<ILike> = ({ favorited, favoritesCount, slug }) => {
+const Like = ({ favorited, favoritesCount, slug }: ILike) => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state: rootState) => state.usersReducer.isAuth);
   const [like, setLike] = useState<boolean>(favorited);

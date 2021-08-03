@@ -19,7 +19,7 @@ import rootState from "../../types/rootState";
 import { IUsers, ISlug } from "../../types/types";
 import classes from "./ArticlePage.module.scss";
 
-const ArticlePage: React.FC<ISlug> = ({ slug }) => {
+const ArticlePage = ({ slug }: ISlug) => {
   const dispatch = useDispatch();
   const articles = useSelector(
     (state: rootState) => state.articlesReducer.articles

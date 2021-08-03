@@ -17,7 +17,7 @@ interface IArticle {
   slug: string;
 }
 
-const Article: React.FC<IArticle> = ({
+const Article = ({
   title,
   username,
   description,
@@ -27,7 +27,7 @@ const Article: React.FC<IArticle> = ({
   updatedAt,
   tagList,
   slug,
-}) => {
+}: IArticle) => {
   const dateArticle = format(new Date(updatedAt), "MMMM dd, yyyy");
   const tag = tagList.map((item) => (
     <span className={classes.article__tag} key={item}>

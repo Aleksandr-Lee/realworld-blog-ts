@@ -13,7 +13,7 @@ import {
 } from "../../redux/actions/listArticles";
 import classes from "./MyArticles.module.scss";
 
-const MyArticles: React.FC = () => {
+const MyArticles = () => {
   const [countArticles, setCountArticles] = useState<number>(0);
   const dispatch = useDispatch();
   const myArticles = useSelector(

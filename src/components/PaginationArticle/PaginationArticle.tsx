@@ -9,9 +9,7 @@ interface IPaginationArticle {
   handlePageClick: (page: number) => void;
 }
 
-const PaginationArticle: React.FC<IPaginationArticle> = ({
-  handlePageClick,
-}) => {
+const PaginationArticle = ({ handlePageClick }: IPaginationArticle) => {
   const articlesCount = useSelector(
     (state: rootState) => state.articlesReducer.articlesCount
   );
